@@ -43,7 +43,7 @@ public interface IClients {
      * @throws java.util.NoSuchElementException if no user with such username
      * @param username
      */
-    public void ActivateClient(String username);
+    public void activateClient(String username);
 
     /**
      * make user not active

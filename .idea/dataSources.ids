@@ -10,20 +10,24 @@
     <table name="categories" schema="" catalog="Shops" type="TABLE">
       <column name="id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="level_num" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="categoty_name" sqlType="CHAR" precision="100" scale="0" nullable="true" jdbcType="1"/>
-      <column name="parent_category" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4"/>
+      <column name="category_name" sqlType="CHAR" precision="100" scale="0" nullable="true" jdbcType="1"/>
+      <column name="parent_category" sqlType="MEDIUMINT" precision="7" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="categories_ibfk_1" columns="parent_category" ref-table="categories" ref-schema="" ref-catalog="Shops" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="categories_ibfk_1" table="categories" schema="" catalog="Shops" columns="parent_category"/>
       <exported-key name="goods_ibfk_1" table="goods" schema="" catalog="Shops" columns="category_id"/>
+      <index name="category_name" unique="true" columns="category_name"/>
     </table>
     <table name="clients" schema="" catalog="Shops" type="TABLE">
       <column name="id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="username" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
       <column name="passhash" sqlType="CHAR" precision="100" scale="0" nullable="false" jdbcType="1"/>
       <column name="email" sqlType="CHAR" precision="100" scale="0" nullable="false" jdbcType="1"/>
+      <column name="active" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="subscriptions_ibfk_3" table="subscriptions" schema="" catalog="Shops" columns="client_id"/>
+      <index name="email" unique="true" columns="email"/>
+      <index name="username" unique="true" columns="username"/>
     </table>
     <table name="exist_goods" schema="" catalog="Shops" type="TABLE">
       <column name="shop_id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4"/>
@@ -51,6 +55,7 @@
       <column name="manufacturer_name" sqlType="CHAR" precision="100" scale="0" nullable="false" jdbcType="1"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="goods_ibfk_2" table="goods" schema="" catalog="Shops" columns="manufacturer_id"/>
+      <index name="manufacturer_name" unique="true" columns="manufacturer_name"/>
     </table>
     <table name="shops" schema="" catalog="Shops" type="TABLE">
       <column name="id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>

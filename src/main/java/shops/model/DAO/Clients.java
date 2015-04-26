@@ -1,17 +1,45 @@
 package shops.model.DAO;
 
 import shops.model.DAO.Interfaces.IClients;
+import shops.model.DAO.Interfaces.IHandler;
 import shops.model.entities.Client;
 import shops.model.entities.NonInitialisedField;
 
-import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Created by root on 26.04.15.
  */
 public class Clients implements IClients{
+    public static Boolean hasUser = null;
+    public class HasUser implements IHandler{
+
+        /**
+         *
+         * check is response set contain any rows
+         * @param resultSet
+         */
+        @Override
+        public void handle(ResultSet resultSet) {
+            Clients.hasUser = null;
+            try {
+                if (resultSet.next()){  // if there are rows with such username
+                    Clients.hasUser = true;
+                }else{
+                    Clients.hasUser = false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
     private static Clients instance = null;
+    private Sql db;
     private Clients(){
+        db = Sql.getInstance();
     }
 
     public static Clients getInstance(){
@@ -41,18 +69,7 @@ public class Clients implements IClients{
             throw new IllegalArgumentException();
         }
 
-
-        String queryS = new String(query);
-        try{
-            Statement st = Sql.getInstance().connection.createStatement();
-            st.executeUpdate(queryS);
-            st.close();  // close transaction
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-
+        db.executeUpdateQuery(new String(query));
 
     }
 
@@ -72,18 +89,34 @@ public class Clients implements IClients{
     }
 
     @Override
-    public void ActivateClient(String username) {
-
+    public void activateClient(String username) {
+        StringBuilder query = new StringBuilder("UPDATE clients SET active = true " +
+                "WHERE username = " + "'"+username+"'");
+        db.executeUpdateQuery(new String(query));
     }
 
     @Override
     public void disActivateUser(String username) {
 
+
     }
 
+    /**
+     *
+     * @param username
+     * @return true, if db contain user with such username, else false
+     */
     @Override
     public boolean hasUsername(String username) {
-        return false;
+        StringBuilder query = new StringBuilder("Select id from clients " +
+                "WHERE username = " + "'"+username+"'");
+
+        db.executeSelectQuery(new String(query), new HasUser());
+        if (hasUser == null){
+            throw new RuntimeException();
+        }
+
+        return hasUser;
     }
 
     @Override

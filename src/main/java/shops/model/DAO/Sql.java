@@ -1,9 +1,9 @@
 package shops.model.DAO;
 
+import shops.model.DAO.Interfaces.IHandler;
+
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by root on 26.04.15.
@@ -88,6 +88,46 @@ public class Sql {
         closeSqlConnection();
 
     }
+
+
+    /**
+     * execute select query
+     * @param query
+     */
+    protected ResultSet executeSelectQuery(String query, IHandler handler){
+        ResultSet resultSet = null;
+        try{
+            Statement st = connection.createStatement();
+            resultSet = st.executeQuery(query);
+            handler.handle(resultSet);  // handle result of response
+            st.close();  // close transaction
+        }
+        catch(Exception e)
+        {
+            resultSet = null;
+            e.printStackTrace();
+        }
+        return resultSet;
+
+    }
+
+    protected void executeUpdateQuery(String query){
+        try{
+            Statement st = connection.createStatement();
+            st.executeUpdate(query);
+
+            st.close();  // close transaction
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
 
 
 }

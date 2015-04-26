@@ -7,6 +7,6 @@ import shops.model.entities.Category;
  */
 public interface ICategories {
     public void addCategory(Category category);
-    public void updareCategory(Category category);
+    public void updateCategory(Category category);
     public void removeCategory(Category category);
 }

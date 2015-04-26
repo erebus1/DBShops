@@ -34,7 +34,7 @@ public interface ISubscriptions {
     public ArrayList<Subscription> getSubscriptionsOfShop(Shop shop);
 
     /**
-     * remove all subscriptions from list
+     * remove subscriptions from list
      * @param subscriptions
      */
     public void removeSubscriptions(ArrayList<Subscription> subscriptions);
