@@ -6,6 +6,7 @@ import shops.model.entities.Client;
  * Created by root on 26.04.15.
  */
 public interface IClients {
+
     /**
      * add new client in db
      * @throws java.lang.IllegalArgumentException if some fields in clients weren't initialised or have wrong format

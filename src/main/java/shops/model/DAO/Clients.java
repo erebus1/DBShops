@@ -9,29 +9,42 @@ import java.sql.Statement;
 /**
  * Created by root on 26.04.15.
  */
-public class Clients extends Sql implements IClients{
+public class Clients implements IClients{
+    private static Clients instance = null;
+    private Clients(){
+    }
+
+    public static Clients getInstance(){
+        if (instance == null){
+            instance = new Clients();
+        }
+        return instance;
+    }
 
     @Override
     public void addClient(Client client) {
-        StringBuilder query = new StringBuilder("INSERT INTO result (id,username, passhash, email) VALUES");
+
+
+        StringBuilder query = new StringBuilder("INSERT INTO clients (username, passhash, email, active) VALUES");
         try {
             query.append("(");
-            query.append(client.getId());
+            query.append("'"+client.getUsername()+"'");
             query.append(", ");
-            query.append(client.getUsername());
+            query.append("'"+client.getPasshash()+"'");
             query.append(", ");
-            query.append(client.getPasshash());
+            query.append("'"+client.getEmail()+"'");
             query.append(", ");
-            query.append(client.getEmail());
+            query.append(client.getActive());
             query.append(");");
         }
         catch (NonInitialisedField e){
             throw new IllegalArgumentException();
         }
 
+
         String queryS = new String(query);
         try{
-            Statement st = c.createStatement();
+            Statement st = Sql.getInstance().connection.createStatement();
             st.executeUpdate(queryS);
             st.close();  // close transaction
         }

@@ -1,5 +1,7 @@
 package shops.controllers;
 
+import shops.model.DAO.Clients;
+import shops.model.DAO.Sql;
 import shops.model.entities.Client;
 
 /**
@@ -7,6 +9,10 @@ import shops.model.entities.Client;
  */
 class Main{
     public static void main(String[] args) {
-        Client client = new Client();
+        Client client = new Client("user3","passd","my e-mail3", 1, true);
+        Clients clients = Clients.getInstance();
+        clients.addClient(client);
+
+        Sql.getInstance().closeSqlConnection();
     }
 }

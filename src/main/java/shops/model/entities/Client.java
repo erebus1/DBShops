@@ -13,7 +13,7 @@ public class Client implements Serializable{
     private int id;
     private Boolean active;
 
-    public Client(String passhash, String username, String email, int id, Boolean active) {
+    public Client(String username, String passhash, String email, int id, Boolean active) {
         this.passhash = passhash;
         this.username = username;
         this.email = email;
