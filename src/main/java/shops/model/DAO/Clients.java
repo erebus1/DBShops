@@ -2,6 +2,9 @@ package shops.model.DAO;
 
 import shops.model.DAO.Interfaces.IClients;
 import shops.model.entities.Client;
+import shops.model.entities.NonInitialisedField;
+
+import java.sql.Statement;
 
 /**
  * Created by root on 26.04.15.
@@ -10,6 +13,33 @@ public class Clients extends Sql implements IClients{
 
     @Override
     public void addClient(Client client) {
+        StringBuilder query = new StringBuilder("INSERT INTO result (id,username, passhash, email) VALUES");
+        try {
+            query.append("(");
+            query.append(client.getId());
+            query.append(", ");
+            query.append(client.getUsername());
+            query.append(", ");
+            query.append(client.getPasshash());
+            query.append(", ");
+            query.append(client.getEmail());
+            query.append(");");
+        }
+        catch (NonInitialisedField e){
+            throw new IllegalArgumentException();
+        }
+
+        String queryS = new String(query);
+        try{
+            Statement st = c.createStatement();
+            st.executeUpdate(queryS);
+            st.close();  // close transaction
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
 
     }
 
