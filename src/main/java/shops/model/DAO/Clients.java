@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * Created by root on 26.04.15.
  */
 public class Clients implements IClients{
-    public static Boolean hasUser = null;
+    public static Boolean hasRow = null;
     public class HasUser implements IHandler{
 
         /**
@@ -22,12 +22,12 @@ public class Clients implements IClients{
          */
         @Override
         public void handle(ResultSet resultSet) {
-            Clients.hasUser = null;
+            Clients.hasRow = null;
             try {
                 if (resultSet.next()){  // if there are rows with such username
-                    Clients.hasUser = true;
+                    Clients.hasRow = true;
                 }else{
-                    Clients.hasUser = false;
+                    Clients.hasRow = false;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -107,16 +107,24 @@ public class Clients implements IClients{
                 "WHERE username = " + "'"+username+"'");
 
         db.executeSelectQuery(new String(query), new HasUser());
-        if (hasUser == null){
+        if (hasRow == null){
             throw new RuntimeException();
         }
 
-        return hasUser;
+        return hasRow;
     }
 
     @Override
     public boolean hasEmail(String email) {
-        return false;
+        StringBuilder query = new StringBuilder("Select id from clients " +
+                "WHERE email = " + "'"+email+"'");
+
+        db.executeSelectQuery(new String(query), new HasUser());
+        if (hasRow == null){
+            throw new RuntimeException();
+        }
+
+        return hasRow;
     }
 
     @Override
