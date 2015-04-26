@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="MySQL - Shops@localhost" uuid="b98a2653-35e2-48f9-869e-b5bc53e019b4">
+    <database-info product="MySQL" version="5.5.41-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="Shops"/>
+    <table name="categories" schema="" catalog="Shops" type="TABLE">
+      <column name="id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="level_num" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="categoty_name" sqlType="CHAR" precision="100" scale="0" nullable="true" jdbcType="1"/>
+      <column name="parent_category" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="categories_ibfk_1" columns="parent_category" ref-table="categories" ref-schema="" ref-catalog="Shops" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="categories_ibfk_1" table="categories" schema="" catalog="Shops" columns="parent_category"/>
+      <exported-key name="goods_ibfk_1" table="goods" schema="" catalog="Shops" columns="category_id"/>
+    </table>
+    <table name="clients" schema="" catalog="Shops" type="TABLE">
+      <column name="id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="username" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <column name="passhash" sqlType="CHAR" precision="100" scale="0" nullable="false" jdbcType="1"/>
+      <column name="email" sqlType="CHAR" precision="100" scale="0" nullable="false" jdbcType="1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="subscriptions_ibfk_3" table="subscriptions" schema="" catalog="Shops" columns="client_id"/>
+    </table>
+    <table name="exist_goods" schema="" catalog="Shops" type="TABLE">
+      <column name="shop_id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4"/>
+      <column name="good_id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4"/>
+      <column name="qty" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="price" sqlType="FLOAT" precision="12" scale="0" nullable="true" jdbcType="7"/>
+      <foreign-key name="exist_goods_ibfk_1" columns="shop_id" ref-table="shops" ref-schema="" ref-catalog="Shops" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="exist_goods_ibfk_2" columns="good_id" ref-table="goods" ref-schema="" ref-catalog="Shops" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="goods" schema="" catalog="Shops" type="TABLE">
+      <column name="id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="good_name" sqlType="CHAR" precision="100" scale="0" nullable="false" jdbcType="1"/>
+      <column name="rating_pos" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="rating_neg" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="category_id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="true" jdbcType="4"/>
+      <column name="manufacturer_id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="goods_ibfk_1" columns="category_id" ref-table="categories" ref-schema="" ref-catalog="Shops" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="goods_ibfk_2" columns="manufacturer_id" ref-table="manufacturers" ref-schema="" ref-catalog="Shops" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="exist_goods_ibfk_2" table="exist_goods" schema="" catalog="Shops" columns="good_id"/>
+      <exported-key name="subscriptions_ibfk_2" table="subscriptions" schema="" catalog="Shops" columns="good_id"/>
+    </table>
+    <table name="manufacturers" schema="" catalog="Shops" type="TABLE">
+      <column name="id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="manufacturer_name" sqlType="CHAR" precision="100" scale="0" nullable="false" jdbcType="1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="goods_ibfk_2" table="goods" schema="" catalog="Shops" columns="manufacturer_id"/>
+    </table>
+    <table name="shops" schema="" catalog="Shops" type="TABLE">
+      <column name="id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="shop_name" sqlType="CHAR" precision="30" scale="0" nullable="false" jdbcType="1"/>
+      <column name="address" sqlType="CHAR" precision="100" scale="0" nullable="false" jdbcType="1"/>
+      <column name="rating_pos" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="rating_neg" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="url" sqlType="CHAR" precision="100" scale="0" nullable="true" jdbcType="1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="exist_goods_ibfk_1" table="exist_goods" schema="" catalog="Shops" columns="shop_id"/>
+      <exported-key name="subscriptions_ibfk_1" table="subscriptions" schema="" catalog="Shops" columns="shop_id"/>
+    </table>
+    <table name="subscriptions" schema="" catalog="Shops" type="TABLE">
+      <column name="shop_id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="true" jdbcType="4"/>
+      <column name="good_id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="true" jdbcType="4"/>
+      <column name="client_id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="true" jdbcType="4"/>
+      <foreign-key name="subscriptions_ibfk_1" columns="shop_id" ref-table="shops" ref-schema="" ref-catalog="Shops" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="subscriptions_ibfk_2" columns="good_id" ref-table="goods" ref-schema="" ref-catalog="Shops" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="subscriptions_ibfk_3" columns="client_id" ref-table="clients" ref-schema="" ref-catalog="Shops" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+  </data-source>
+</component>
