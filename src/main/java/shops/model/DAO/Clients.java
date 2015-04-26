@@ -79,11 +79,6 @@ public class Clients implements IClients{
     }
 
     @Override
-    public boolean isActiveClient(int id) {
-        return false;
-    }
-
-    @Override
     public boolean isActiveClient(String username) {
         return false;
     }

@@ -22,13 +22,6 @@ public interface IClients {
      */
     public void updateClient(Client client);
 
-    /**
-     *
-     * @param id id of client
-     * @throws java.util.NoSuchElementException if no user with such id
-     * @return true if active, else false.
-     */
-    public boolean isActiveClient(int id);
 
     /**
      *
