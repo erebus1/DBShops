@@ -27,21 +27,10 @@ public class Sql {
         url = "jdbc:mysql://"+ip+":"+port+"/Shops";
      	/* END Start INFO */
 
-        loadDriver();
         openSqlConnection();
     }
 
-    private void loadDriver() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public static Sql getInstance(){
         if (instance == null){
@@ -50,14 +39,16 @@ public class Sql {
         return instance;
 
     }
+
+    /**
+     * Open SQL Connection
+     * @parameter user - login
+     * @parameter password - password
+     * @parameter url - url to connect to
+     * @return a connection if all is ok, or null if smth wrong
+     */
     public Connection openSqlConnection(){
-        /**
-         * Open SQL Connection
-         * @parameter user - login
-         * @parameter password - password
-         * @parameter url - url to connect to
-         * @return a connection if all is ok, or null if smth wrong
-         */
+
         try
         {
             connection = DriverManager.getConnection(url, user, password);
@@ -71,10 +62,11 @@ public class Sql {
         return connection;
     }
 
+    /**
+     * close connection
+     */
     public String closeSqlConnection(){
-        /**
-         * close connection
-         */
+
         try{
             if (connection !=null){
                 connection.close();} //close connection
@@ -87,6 +79,11 @@ public class Sql {
         return "OK";
 
     }
+
+    /**
+     * close connection to db on destructor
+     * @throws IOException
+     */
     protected void finalize() throws IOException {
         closeSqlConnection();
 
