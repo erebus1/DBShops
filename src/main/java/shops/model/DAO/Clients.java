@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public class Clients implements IClients{
     public static Boolean hasRow = null;
-    public class HasUser implements IHandler{
+    public class HasRow implements IHandler{
 
         /**
          *
@@ -106,7 +106,7 @@ public class Clients implements IClients{
         StringBuilder query = new StringBuilder("Select id from clients " +
                 "WHERE username = " + "'"+username+"'");
 
-        db.executeSelectQuery(new String(query), new HasUser());
+        db.executeSelectQuery(new String(query), new HasRow());
         if (hasRow == null){
             throw new RuntimeException();
         }
@@ -119,7 +119,7 @@ public class Clients implements IClients{
         StringBuilder query = new StringBuilder("Select id from clients " +
                 "WHERE email = " + "'"+email+"'");
 
-        db.executeSelectQuery(new String(query), new HasUser());
+        db.executeSelectQuery(new String(query), new HasRow());
         if (hasRow == null){
             throw new RuntimeException();
         }

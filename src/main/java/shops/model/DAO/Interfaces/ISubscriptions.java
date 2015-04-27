@@ -16,7 +16,7 @@ public interface ISubscriptions {
      * @throws java.util.NoSuchElementException if no such user
      * @return array list of subscriptons
      */
-    public ArrayList<ISubscriptions> getSubscriptionOfClient(String username);
+    public ArrayList<Subscription> getSubscriptionOfClient(String username);
 
     /**
      *
@@ -24,7 +24,7 @@ public interface ISubscriptions {
      * @throws java.util.NoSuchElementException if no such good
      * @return array list of all subscriptions on this good
      */
-    public ArrayList<ISubscriptions> getSubscriptionsOfGood(Good good);
+    public ArrayList<Subscription> getSubscriptionsOfGood(Good good);
 
     /**
      * @throws java.util.NoSuchElementException if no such shop
@@ -39,4 +39,12 @@ public interface ISubscriptions {
      */
     public void removeSubscriptions(ArrayList<Subscription> subscriptions);
 
+
+    /**
+     * return all subscriptions of user from specified shop
+     * @param username
+     * @param shopName
+     * @return array list of goods
+     */
+    public ArrayList<Good> getSubscriptionsOfClientFromShop(String username, String shopName);
 }
