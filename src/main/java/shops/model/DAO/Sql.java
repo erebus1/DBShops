@@ -91,7 +91,7 @@ public class Sql {
 
 
     /**
-     * execute select query
+     * execute select query and process result set by handler
      * @param query
      */
     protected ResultSet executeSelectQuery(String query, IHandler handler){
@@ -111,6 +111,10 @@ public class Sql {
 
     }
 
+    /**
+     * execute update or insert query
+     * @param query
+     */
     protected void executeUpdateQuery(String query){
         try{
             Statement st = connection.createStatement();

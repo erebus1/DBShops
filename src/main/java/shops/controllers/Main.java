@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 class Main{
     public static void main(String[] args) {
-        Client client = new Client("user3","passd","my e-mail3", 1, false);
+        Client client = new Client("user5","passd","my e-mail5", 1, false);
         Clients clients = Clients.getInstance();
-//        clients.addClient(client);
-//        clients.activateClient("user3");
+        clients.addClient(client);
+        clients.activateClient("user3");
         System.out.println(clients.hasUsername("user35"));
 
         ArrayList<Good> goods = Subscriptions.getInstance().getSubscriptionsOfClientFromShop("admin2","silpo");
