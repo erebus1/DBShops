@@ -1,70 +1,70 @@
 CREATE DATABASE Shops;
 USE Shops;
 # drop tables
-Drop table subscriptions;
-Drop table exist_goods;
-Drop table goods;
-Drop table manufacturers;
-Drop table categories;
-Drop table shops;
-drop table clients;
+DROP TABLE subscriptions;
+DROP TABLE exist_goods;
+DROP TABLE goods;
+DROP TABLE manufacturers;
+DROP TABLE categories;
+DROP TABLE shops;
+DROP TABLE clients;
 
-# create tables
-create TABLE clients(id MEDIUMINT NOT NULL AUTO_INCREMENT,
-username char(15) not null unique,
-passhash char(100) not null,
-email char(100) not null unique,
-active bool not null default false,
+# CREATE TABLEs
+CREATE TABLE clients(id MEDIUMINT NOT NULL AUTO_INCREMENT,
+username CHAR(15) NOT NULL UNIQUE,
+passhash CHAR(100) NOT NULL,
+email CHAR(100) NOT NULL UNIQUE,
+active bool NOT NULL DEFAULT FALSE,
 PRIMARY KEY (id));
 
 
 
 CREATE TABLE shops(id MEDIUMINT NOT NULL AUTO_INCREMENT,
-shop_name char(30) not null,
-address char(100) not null,
-rating_pos int default 0,
-rating_neg int default 0,
-url char(100),
+shop_name CHAR(30) NOT NULL,
+address CHAR(100) NOT NULL,
+rating_pos int DEFAULT 0,
+rating_neg int DEFAULT 0,
+url CHAR(100),
 PRIMARY KEY (id));
 
 
-create table categories(
-id mediumint not null auto_increment,
-level_num int not null default 0,
-category_name char(100) unique,
+CREATE TABLE categories(
+id mediumint NOT NULL auto_increment,
+level_num int NOT NULL DEFAULT 0,
+category_name CHAR(100) UNIQUE,
 parent_category mediumint,
-Foreign key(parent_category) references categories(id),
-primary key (id)
+FOREIGN KEY(parent_category) REFERENCES categories(id),
+PRIMARY KEY (id)
 );
 
 
-create table manufacturers(
-id mediumint not null auto_increment,
-manufacturer_name char(100) not null unique,
-Primary key(id)
+CREATE TABLE manufacturers(
+id mediumint NOT NULL auto_increment,
+manufacturer_name CHAR(100) NOT NULL UNIQUE,
+PRIMARY KEY(id)
 );
 
 
 CREATE TABLE goods(
-id mediumint not null auto_increment,
-good_name char(100) not null,
-rating_pos int default 0,
-rating_neg int Default 0,
+id mediumint NOT NULL auto_increment,
+good_name CHAR(100) NOT NULL,
+rating_pos int DEFAULT 0,
+rating_neg int DEFAULT 0,
 category_id mediumint,
-manufacturer_id mediumint not null,
-primary key(id),
-Foreign Key(category_id) References categories(id),
-Foreign Key(manufacturer_id) References manufacturers(id)
+manufacturer_id mediumint NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY(category_id) REFERENCES categories(id),
+FOREIGN KEY(manufacturer_id) REFERENCES manufacturers(id)
 );
 
 
-create table exist_goods(
-shop_id mediumint not null,
-good_id mediumint not null,
-qty long,
-price float,
-foreign key(shop_id) references shops(id),
-foreign key(good_id) references goods(id)
+CREATE TABLE exist_goods(
+shop_id mediumint NOT NULL,
+good_id mediumint NOT NULL,
+qty LONG,
+price FLOAT,
+FOREIGN KEY(shop_id) REFERENCES shops(id),
+FOREIGN KEY(good_id) REFERENCES goods(id)
 );
 
 
